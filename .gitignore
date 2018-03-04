@@ -9,7 +9,7 @@ __pycache__/
 .idea
 tracks.txt
 results/
-
+*.part
 
 # Created by https://www.gitignore.io/api/linux,pydev,macos,python,windows,virtualenv,visualstudiocode
 
