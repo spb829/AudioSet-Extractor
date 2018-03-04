@@ -1,7 +1,6 @@
 import json
-from subprocess import call
-from pprint import pprint
 import os
+from subprocess import call
 from shutil import copyfile
 
 ontologyData = json.load(open('ontology.json'))
@@ -37,8 +36,9 @@ for data in trainedData:
 
     call(["python", "split.py", "-yt", url])
 
-    labels = data['positive_labels'].split(',')
     if os.path.exists(src):
+        labels = data['positive_labels'].split(',')
+        
         for label in labels:
             found = ontologyFindByID(label)
 
