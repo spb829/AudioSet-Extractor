@@ -1,3 +1,5 @@
+# Custom
+
 venv/
 *.pyc
 *.mp3
@@ -6,6 +8,7 @@ splits/
 __pycache__/
 .idea
 tracks.txt
+results/
 
 
 # Created by https://www.gitignore.io/api/linux,pydev,macos,python,windows,virtualenv,visualstudiocode
