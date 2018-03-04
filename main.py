@@ -1,6 +1,8 @@
 import json
 from subprocess import call
 from pprint import pprint
+import os
+from shutil import copyfile
 
 ontologyData = json.load(open('ontology.json'))
 trainedData = json.load(open('balanced_train_segments.json'))
@@ -11,10 +13,40 @@ def ontologyFindByID(id):
         if ontology['id'] == id:
             return ontology
 
-#call(["python", "split.py", "-yt", "https://www.youtube.com/watch?v=-0DLPzsiXXE"])
-found = ontologyFindByID("/m/07qwdck")
-pprint(found)
+for data in trainedData:
+    src = "./splits/" + data['YTID'] + "/01 - " + data['YTID'] + ".mp3"
+    if os.path.exists(src):
+        continue
 
-# create destination folder
-if not os.path.exists(resultFolder):
-    os.makedirs(resultFolder)
+    url = "https://www.youtube.com/watch?v=" + data['YTID']
+    f = open("tracks.txt", 'w')
+
+    startSeconds = data['start_seconds']
+    min = int(startSeconds / 60)
+    seconds = int(startSeconds % 60)
+    line = str(min) + ":" + str(seconds) + " " + data['YTID'] + "\n"
+    f.write(line)
+
+    startSeconds += 10
+    min = int(startSeconds / 60)
+    seconds = int(startSeconds % 60)
+    line = str(min) + ":" + str(seconds) + " sample1"
+    f.write(line)
+
+    f.close()
+
+    call(["python", "split.py", "-yt", url])
+
+    labels = data['positive_labels'].split(',')
+    if os.path.exists(src):
+        for label in labels:
+            found = ontologyFindByID(label)
+
+            folder = resultFolder + found['name']
+            dst = folder + "/" + data['YTID'] + ".mp3"
+
+            # create destination folder
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            
+            copyfile(src, dst)
