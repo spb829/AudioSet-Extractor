@@ -21,6 +21,8 @@
 
 1. Run the script
     * Basic usage: ```python main.py```
+    * Specify Label Name: ```python main.py -label LABELNAME```
+    * Specify Label ID: ```python main.py -id LABELID```
 2. Wait for the splitting process to complete
 3. You will find your audio files in the `results` folder which sorted by label
 
