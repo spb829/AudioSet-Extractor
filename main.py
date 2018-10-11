@@ -76,7 +76,7 @@ def download(mode, value):
                   os.makedirs(folder)
               
               copyfile(src, dst)
-
+							
 if __name__ == "__main__":
     # arg parsing
     parser = argparse.ArgumentParser(description='Download audioes from AudioSet')
@@ -84,12 +84,14 @@ if __name__ == "__main__":
         "-id", 
         help="The id you want to download. Default: None", 
         metavar="label_id",
+				type=str,
         default=None
     )
     parser.add_argument(
         "-label",
         help="Specify the label that you want to download. Default: None",
         metavar="label",
+				type=str,
         default=None
     )
 
