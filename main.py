@@ -20,9 +20,9 @@ def ontologyFindByLabel(label):
 
 def download(mode, value):
   for data in trainedData:
+      flag = False
       if mode is 'id':
           labelIds = data['positive_labels'].split(',')
-          flag = False
           for labelId in labelIds:
                 if labelId == value:
                     flag = True
@@ -32,7 +32,7 @@ def download(mode, value):
       elif mode is 'label':
           labelIds = data['positive_labels'].split(',')
           for labelId in labelIds:
-              found = ontologyFindById(value)
+              found = ontologyFindById(labelId)
               if found['name'] == value:
                   flag = True
                   break
